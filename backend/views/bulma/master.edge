@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ctx.config('name') }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: #1f1e1e;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        .mvh-10 {
+            margin-top: 10vh;
+        }
+
+        .ml-3 {
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column is-8-tablet is-offset-2-tablet is-6-widescreen is-offset-3-widescreen">
+                <div class="has-text-centered">
+                    <img src="/xjs-logo-white.png" style="height: 180px; margin-bottom: 15px">
+                </div>
+                @!section('content')
+                <div class="mvh-10 has-text-centered">
+
+                    <a href="?theme=bootstrap" class="button is-dark">
+                        Switch To Bootstrap
+                    </a>
+
+                    <a class="button is-warning" target="_blank" href="https://xpresserjs.com">
+                        Documentation
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

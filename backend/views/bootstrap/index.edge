@@ -1,0 +1,34 @@
+@layout('bootstrap.master')
+@section('content')
+<div class="card">
+    <div class="card-body">
+        <div class="clearfix">
+            <div class="float-left">
+                <h2>
+                    <span class="text-muted">Hello</span> {{ user.name }},
+                </h2>
+            </div>
+            <div class="float-right">
+                <a href="https://www.npmjs.com/package/edge.js" target="_blank">
+                    <span class="badge badge-dark float-right">Using Edge.js</span>
+                </a>
+            </div>
+        </div>
+
+        <hr>
+
+        <p class="mt-2 lead">
+            Your awesome project is using <a target="_blank" href="https://www.npmjs.com/package/xpresser"><strong
+                        class="text-danger">X</strong><strong class="text-dark">presser</strong></a> &
+            <strong
+                    class="text-primary">Bootstrap</strong>!
+        </p>
+
+        <div class="mt-5 text-center">
+            <a href="{{ ctx.route('about') }}" class="btn btn-success">
+                See About Page
+            </a>
+        </div>
+    </div>
+</div>
+@endsection

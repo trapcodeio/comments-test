@@ -1,0 +1,62 @@
+@layout('bulma.master')
+@section('content')
+ <div class="box">
+     <section>
+         @each(comment in comments)
+        <h5 class="is-size-5 has-text-weight-bold">{{comment.author.name}}</h5>
+         <p>{{comment.comment}}</p>
+
+            @each(reply in comment.replies)
+                <div class="box" style="margin-left: 50px; margin-top: 10px">
+                @if(reply.is_trader)
+                <h6 class="is-size-6 has-text-weight-bold">{{trader.data.name}}</h6>
+                <p>{{reply.reply}}</p>
+                @else
+                <h6 class="is-size-6 has-text-weight-bold">{{comment.author.name}}</h6>
+                <p>{{reply.reply}}</p>
+                @endif
+                </div>
+            @endeach
+         <form style="margin-top: 30px" method="post" action="{{ctx.route('comments.post_reply')}}">
+         <input type="hidden" name="comment" value="{{comment._id}}">
+            <div>
+                <input name="reply" type="text" class="input">
+            </div>
+            <div class="is-clearfix">
+                <div class="is-pulled-left">
+                    <input type="radio" name="user" value="trader" checked> Trader
+                    <input type="radio" name="user" value="{{comment.author._id}}">  Guest
+                </div>
+               <button class="button is-info is-pulled-right">
+                   Reply
+               </button>
+            </div>
+        </form>
+         <hr>
+         @endeach
+     </section>
+
+     <section>
+        <form action="{{ctx.route('comments.post')}}" method="post">
+            <select class="input" name="guest" id="">
+                <option value="none">Select Guest</option>
+
+                @each(guest in guests)
+            <option value="{{guest._id}}">{{guest.name}}</option>
+                @endeach
+            </select>
+            <div class="field">
+                <label for="" class="label">Guest Name</label>
+                <div class="control">
+                    <input name="name" type="text" class="input">
+                </div>
+            </div>
+
+            <textarea class="textarea" name="comment" id="" cols="10" rows="10"></textarea>
+            <div>
+            <button class="button is-primary">comment</button>
+        </div>
+        </form>
+     </section>
+ </div>
+@endsection

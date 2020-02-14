@@ -1,0 +1,24 @@
+@layout('bulma.master')
+@section('content')
+    <div class="box">
+        <h1 class="title">
+            <span class="has-text-grey-light">Hello</span> {{user.name }},
+            <a href="https://www.npmjs.com/package/edge.js" target="_blank">
+                <span class="is-pulled-right tag is-dark">Using Edge.js</span>
+            </a>
+        </h1>
+        <hr class="is-marginLess">
+
+        <p class="subtitle">
+            Your awesome project is using <a target="_blank" href="https://www.npmjs.com/package/xpresser"><strong
+                        class="has-text-danger">X</strong><strong>presser</strong></a> & <strong
+                    class="has-text-primary">Bulma</strong>!
+        </p>
+
+        <div class="mvh-10 has-text-centered">
+            <a href="{{ ctx.route('about') }}" class="button is-primary is-hovered">
+                See About Page
+            </a>
+        </div>
+    </div>
+@endsection

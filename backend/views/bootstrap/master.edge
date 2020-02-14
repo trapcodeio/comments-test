@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{ ctx.config('name') }}</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            background: #1f1e1e;
+        }
+
+        .mvh-10 {
+            margin-top: 10vh;
+        }
+
+        .lead strong {
+            font-weight: bold !important;
+        }
+    </style>
+</head>
+<body>
+<section class="section mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-8 offset-md-2">
+                <div class="text-center">
+                    <img src="/xjs-logo-white.png" style="height: 180px; margin-bottom: 15px">
+                </div>
+
+                @!section('content')
+
+                <div class="mt-5 text-center">
+
+                    <a href="?theme=bulma" class="btn btn-secondary">Switch To Bulma</a>
+
+                    <a class="btn btn-warning" target="_blank" href="https://xpresserjs.com">
+                        Documentation
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
