@@ -12,7 +12,7 @@
                 <h6 class="is-size-6 has-text-weight-bold">{{trader.data.name}}</h6>
                 <p>{{reply.reply}}</p>
                 @else
-                <h6 class="is-size-6 has-text-weight-bold">{{comment.author.name}}</h6>
+                <h6 class="is-size-6 has-text-weight-bold">{{$parent.comment.author.name}}</h6>
                 <p>{{reply.reply}}</p>
                 @endif
                 </div>

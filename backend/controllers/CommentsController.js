@@ -19,33 +19,53 @@ class CommentsController extends $.controller {
         return {}
     }
 
-    async index(http) {
-        // fetch guests.
-        const trader = await Trader.findOne();
 
+    /**
+     * Boot method runs on every request.
+     * 
+     * Here we load the only trader used in this test
+     */
+    static async boot() {
+        let trader = await Trader.findOne();
 
+        if (!trader) trader = await Trader.new({ name: 'App Developer' });
+
+        return { trader }
+    }
+
+    async index(http, { trader }) {
+        // Get all guests
         const guests = await Guest.find();
-        const comments = await Comment.find();
 
-        for (const index in comments) {
-            const c = Comment.use(comments[index])
-            await c.hasOne('author');
-
-            // get replies
-            const replies = await Reply.find({comment: c.id()})
-
-            c.set('replies', replies)
-
-            comments[index] = c.data;
-
-        }
+        // Get all comments
+        const comments = await Comment.toArray(q => q.aggregate(
+            [
+                {
+                    $lookup:
+                    {
+                        from: 'guests',
+                        localField: 'author',
+                        foreignField: '_id',
+                        as: 'author'
+                    }
+                },
+                {
+                    $lookup:
+                    {
+                        from: 'replies',
+                        localField: '_id',
+                        foreignField: 'comment',
+                        as: 'replies'
+                    }
+                },
+                {$unwind: '$author'},
+            ]
+        ));
 
         return http.view('comments', { trader, guests, comments })
     }
 
-    async create(http) {
-
-        const trader = await Trader.findOne();
+    async create(http, { trader }) {
 
         const { name, comment, guest } = http.req.body;
         let newGuest;
@@ -58,6 +78,9 @@ class CommentsController extends $.controller {
 
         }
 
+
+        // console.log(newGuest);
+
         await Comment.new({
             trader: trader.id(),
             author: newGuest.id(),
@@ -68,22 +91,20 @@ class CommentsController extends $.controller {
     }
 
 
-    async post_reply(http) {
-        const trader = await Trader.findOne();
-
+    async post_reply(http, { trader }) {
         const { reply, comment, user } = http.req.body;
 
         let is_trader = user === 'trader';
         let author;
 
-        if(is_trader) {
+        if (is_trader) {
             author = trader.id()
         } else {
             author = Reply.id(user);
         }
-        
 
-        const newReply = Reply.new({
+
+        const newReply = await Reply.new({
             comment: Reply.id(comment),
             author,
             is_trader,
